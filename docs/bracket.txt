@@ -1,0 +1,77 @@
+
+
+
+Teams   PICKS
+Round     0 
+t1             
+t2        1
+
+t3            
+t4        1
+
+t1        0  
+t2         
+
+t3        0 
+t4         
+
+points_per_round = 1
+game = 0 to 1
+score = score + (1 - (((picks & (game+1)) >> game) ^ ((actual & (game+1)) >> game))) * points_per_round
+score = score + (((picks & (game+2)) >> game) == ((actual & (game+2)) >> game) * points_per_round
+
+Round     0
+        
+Team    T M B
+:t1     0 0 0 
+:t2     1 0 1
+:t3     2 1 0
+:t4     3 1 1
+:t5     4 2 0
+:t6     5 2 1
+:t7     6 3 0
+:t8     7 3 1
+
+bit widths
+00000000 0000 00 0
+12345678 9012 34 5 = 15
+15 * 4 = 60
+final 4:
+00 0
+63 bits
+0 00 0000 00000000 0000000000000000 00000000000000000000000000000000
+1 23 4567 89012345 6789012345678901 23456789012345678901234567890123
+            1          2         3          4         5         6
+
+
+0b100000000001000000000000010000000000000000000100000000000000000
+
+
+
+
+given 
+
+
+t1 t2 t3 t4 t5 t6 t7 t8
+  0     1     1     1
+     0           
+
+results: -01110
+ played: 101111
+
+is team tX alive?:
+  team_number = @teams.index(tX)
+  win_number = 0
+  results_number = 0
+  match_base = 0
+  r = 0 up to R
+    team_bit = team_number % 2
+    match_number = match_base + team_number / 2
+    results_number |= (((results >> match_number) & 1) << r)
+    win_number |= (team_bit << r)
+    match_base += games_in_round(r)
+    team_number /= 2
+
+given round = r
+   team_number = 
+    
