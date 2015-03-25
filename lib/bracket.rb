@@ -68,11 +68,11 @@ class Bracket
     match_offset = match_base + team_number / 2
     alive = true
     r = 0
-    while alive && ((@played >> match_offset) & 1) == 1 && r < round
+    while alive && ((@played >> match_offset) & 1) == 1 && r <= round
       results_number |= (((@results >> match_offset) & 1) << r)
       win_number |= (team_bit << r)
       alive = results_number == win_number
-      break unless alive
+      break if !alive || r >= round
       match_base += games_in_round(r)
       r += 1
       team_number /= 2
