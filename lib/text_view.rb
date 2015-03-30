@@ -1,5 +1,6 @@
-class NcaaTextView
-  def initialize(bracket)
+class TextView
+  def initialize(teams, bracket)
+    @teams = teams
     @bracket = bracket
   end
 
