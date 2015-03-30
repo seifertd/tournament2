@@ -8,6 +8,6 @@ describe BasicScorer do
     @scorer = BasicScorer.new(@teams, @bracket)
   end
   it "scores perfectly a perfect pick" do
-    expect(@scorer.score(@bracket)).to eq(3)
+    expect(@scorer.score(@bracket)).to eq([192,192])
   end
 end
