@@ -11,12 +11,14 @@ class Scorer
     while round < result_bracket.rounds
       game = 0
       while game < result_bracket.games_in_round(round)
-        result = result_bracket.result(round,game)
+        result = result_bracket.final_result(round,game)
+        pick = picks.final_result(round,game)
         if result
-          score[0] += score_of(round, result[1], result[2])
+          if result[0] == pick[0]
+            score[0] += score_of(round, result[1], result[2])
+          end
           score[1] += score_of(round, result[1], result[2])
         else
-          pick = picks.result(round,game)
           score[1] += score_of(round, pick[1], pick[2])
         end
         game += 1
