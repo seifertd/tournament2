@@ -39,5 +39,11 @@ end
 
 task :default => :spec
 
+task :benchmark do
+  $:.unshift "./lib"
+  puts "Scoring Benchmark:"
+  require_relative "benchmarks/scoring_bm"
+end
+
 require 'yard'
 YARD::Rake::YardocTask.new

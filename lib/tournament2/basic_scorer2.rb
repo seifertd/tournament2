@@ -1,5 +1,5 @@
-require_relative './scorer'
-require_relative './bit_twiddle'
+require_relative 'scorer'
+require_relative 'bit_twiddle'
 
 module Tournament2
   class BasicScorer2 < Scorer

@@ -1,4 +1,4 @@
-require_relative "./bit_twiddle"
+require_relative "bit_twiddle"
 
 module Tournament2
   class Bracket
