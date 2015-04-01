@@ -10,7 +10,7 @@ module Tournament2
       fr_result = result_bracket.results & FR_MASK
       fr_picks = picks.results & FR_MASK
       fr_correct =  result_bracket.games_in_round(0) - BitTwiddle.bits_set_in(fr_result ^ fr_picks)
-      score = [fr_correct, fr_correct]
+      score = [fr_correct, result_bracket.games_in_round(0)]
       round = 1
       while round < result_bracket.rounds
         game = 0
