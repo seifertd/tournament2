@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "tournament2"
   gem.homepage = "http://github.com/seifertd/tournament2"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Library for running bracket-based tournament pools, such as the NCAA basketball tournament.}
+  gem.description = %Q{Version 2 with general improvements.}
   gem.email = "doug@dseifert.net"
   gem.authors = ["Douglas A. Seifert"]
   # dependencies defined in Gemfile
