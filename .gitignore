@@ -3,14 +3,15 @@ coverage
 coverage.data
 
 # rdoc generated
-rdoc
+/rdoc/
 
 # yard generated
-doc
-.yardoc
+/doc/
+/.yardoc/
+/_yardoc/
 
 # bundler
-.bundle
+/.bundle/
 
 # jeweler generated
 pkg
@@ -28,7 +29,7 @@ pkg
 #
 # For MacOS:
 #
-#.DS_Store
+.DS_Store
 
 # For TextMate
 #*.tmproj
@@ -40,10 +41,23 @@ pkg
 #.\#*
 
 # For vim:
-#*.swp
+*.swp
 
 # For redcar:
 #.redcar
 
 # For rubinius:
 #*.rbc
+
+## Documentation cache and generated files:
+/.yardoc/
+/_yardoc/
+/doc/
+/rdoc/
+
+## Environment normalisation:
+/.bundle/
+/lib/bundler/man/
+
+# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+.rvmrc
