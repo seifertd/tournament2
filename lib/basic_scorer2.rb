@@ -19,7 +19,7 @@ class BasicScorer2 < Scorer
         if result && result[0] == pick[0]
           score[0] += score_of(round, result[1], result[2])
         end
-        puts "RESULT: #{result.inspect} PICK: #{pick.inspect} ROUND: #{round} GAME: #{game}"
+        #puts "RESULT: #{result.inspect} PICK: #{pick.inspect} ROUND: #{round} GAME: #{game}"
         score[1] += score_of(round, (result || pick)[1], (result || pick)[2])
         game += 1
       end

@@ -1,8 +1,6 @@
-require "memoist"
 require_relative "./bit_twiddle"
 
 class Bracket
-  extend Memoist
   attr_accessor :results, :rounds, :number_of_teams, :played, :round
   def initialize(number_of_teams)
     @number_of_teams = number_of_teams
@@ -10,6 +8,11 @@ class Bracket
     @results = 0
     @played = 0
     @round = 0
+    reset_final_results
+  end
+
+  def reset_final_results
+    @final_results = Hash.new {|h,k| h[k] = {} }
   end
 
   def total_games
@@ -20,23 +23,19 @@ class Bracket
     BitTwiddle.bits_set_in @played
   end
 
-  def games_played_in_round(round = nil)
-    round ||= @round
+  def games_played_in_round(round)
     BitTwiddle.bits_set_in ((@played >> round_offset(round)) & round_mask(round))
   end
 
-  def games_in_round(round = nil)
-    round ||= @round
+  def games_in_round(round)
     (@number_of_teams / 2) / (2**round)
   end
 
-  def round_mask(round = nil)
-    round ||= @round
+  def round_mask(round)
     2 ** games_in_round(round) - 1
   end
 
-  def round_offset(round = nil)
-    round ||= @round
+  def round_offset(round)
     round == 0 ? 0 : (@number_of_teams - games_in_round(round-1))
   end
 
@@ -59,7 +58,7 @@ class Bracket
     #puts "  -> INFO: #{info.inspect}"
     @results |= (info[:team_bit] << info[:result_offset])
     @played |= (1 << info[:result_offset])
-    if games_played_in_round >= games_in_round
+    if games_played_in_round(@round) >= games_in_round(@round)
       @round += 1
     end
     @results
@@ -121,9 +120,8 @@ class Bracket
   end
 
   def final_result(round, game)
-    result(round, game, false)
+    @final_results[round][game] ||= result(round, game, false)
   end
-  memoize :final_result
 
   def team_alive(team)
     match_info(team, @round)[:alive]
