@@ -1,13 +1,11 @@
-require 'basic_scorer'
-require 'basic_scorer2'
-require 'bracket'
+require 'tournament2'
 
-describe BasicScorer do
+describe Tournament2::BasicScorer do
   before do
     @teams = (0..63).to_a.map {|n| "t#{n}".to_sym}
-    @bracket = Bracket.random_bracket(@teams)
-    @scorer = BasicScorer.new(@teams, @bracket)
-    @scorer2 = BasicScorer2.new(@teams, @bracket)
+    @bracket = Tournament2::Bracket.random_bracket(@teams)
+    @scorer = Tournament2::BasicScorer.new(@teams, @bracket)
+    @scorer2 = Tournament2::BasicScorer2.new(@teams, @bracket)
   end
   it "is complete" do
     expect(@bracket.complete?).to be(true)

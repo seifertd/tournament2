@@ -2,7 +2,6 @@ require_relative "./bit_twiddle"
 
 module Tournament2
   class Bracket
-    extend Memoist
     attr_accessor :results, :rounds, :number_of_teams, :played, :round
     def initialize(number_of_teams)
       @number_of_teams = number_of_teams

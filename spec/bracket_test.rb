@@ -1,12 +1,12 @@
-require 'bracket'
+require 'tournament2'
 
-describe Bracket do
+describe Tournament2::Bracket do
   before do
-    @bracket = Bracket.new(64)
+    @bracket = Tournament2::Bracket.new(64)
   end
   it "calculates number of rounds" do
     expect(@bracket.rounds).to eq(6)
-    expect(Bracket.new(16).rounds).to eq(4)
+    expect(Tournament2::Bracket.new(16).rounds).to eq(4)
   end
   it "calculates number of games per round" do
     expect(@bracket.games_in_round(0)).to eq(32)
@@ -31,7 +31,7 @@ describe Bracket do
   end
   describe "that is not complete" do
     before do
-      @bracket = Bracket.new(64)
+      @bracket = Tournament2::Bracket.new(64)
       @bracket.results = 0b001010110101010 
       @bracket.played  = 0b111111111111111 
       @bracket.round = 0
@@ -65,7 +65,7 @@ describe Bracket do
   end
   describe "that is complete" do
     before do
-      @bracket = Bracket.new(16)
+      @bracket = Tournament2::Bracket.new(16)
       @bracket.results = 0b001010110101010 
       @bracket.played  = 0b111111111111111 
       @bracket.round = 4
