@@ -1,14 +1,12 @@
 require 'benchmark'
-require 'bracket'
-require 'basic_scorer'
-require 'basic_scorer2'
+require 'tournament2'
 
 
 n = 10_000
 teams = (0..63).to_a.map{|n| "t#{n}".to_sym }
-bracket = Bracket.random_bracket(teams)
-scorer = BasicScorer.new(teams, bracket)
-scorer2 = BasicScorer2.new(teams, bracket)
+bracket = Tournament2::Bracket.random_bracket(teams)
+scorer = Tournament2::BasicScorer.new(teams, bracket)
+scorer2 = Tournament2::BasicScorer2.new(teams, bracket)
 
 puts "#{n} scores of perfect bracket"
 Benchmark.bm(10) do |x|
