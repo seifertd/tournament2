@@ -28,5 +28,21 @@ module Tournament2
     def score_of(round, winner, loser)
       raise "Not yet implemented"
     end
+
+    def self.scorers
+      @scorers ||= {}
+    end
+
+    def self.register(name, clazz)
+      scorers[name] = clazz
+    end
+
+    def self.scorer_names
+      scorers.keys
+    end
+
+    def self.scorer_by_name(name, teams, result_bracket)
+      scorers[name].new(teams, result_bracket)
+    end
   end
 end

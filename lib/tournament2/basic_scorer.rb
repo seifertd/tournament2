@@ -3,5 +3,6 @@ module Tournament2
     def score_of(round, winner, loser)
       2 ** round
     end
+    Scorer.register('basic', self)
   end
 end
