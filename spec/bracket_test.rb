@@ -1,6 +1,4 @@
-require 'tournament2'
-
-describe Tournament2::Bracket do
+describe "Tournament2::Bracket" do
   before do
     @bracket = Tournament2::Bracket.new(64)
   end
@@ -62,6 +60,14 @@ describe Tournament2::Bracket do
     it "returns nil as result for unplayed games" do
       expect(@bracket.result(0,30)).to be(nil)
     end
+    it "raises an error if a win is recorded by a team that has lost" do
+      expect { @bracket.record_win_by(1) }.to raise_error
+    end
+    it "can be printed" do
+      out = StringIO.new("")
+      @bracket.print(out)
+      expect(out.string).to match(/RESULTS: 0+1010110101010/)
+    end
   end
   describe "that is complete" do
     before do
@@ -72,6 +78,9 @@ describe Tournament2::Bracket do
     end
     it "says so" do
       expect(@bracket.complete?).to be(true)
+    end
+    it "raises an error if a win is recorded" do
+      expect { @bracket.record_win_by(@bracket.winner) }.to raise_error
     end
     it "has a winner" do
       expect(@bracket.winner).to eq(4)

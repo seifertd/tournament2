@@ -1,6 +1,4 @@
 # encoding: utf-8
-
-require 'rubygems'
 require 'bundler'
 begin
   Bundler.setup(:default, :development)
@@ -28,8 +26,11 @@ Jeweler::RubygemsDotOrgTasks.new
 require 'rspec/core'
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |spec|
+  require "./spec/spec_helper"
   spec.pattern = FileList['spec/**/*.rb']
 end
+
+task :default => :spec
 
 desc "Code coverage detail"
 task :simplecov do
@@ -37,12 +38,11 @@ task :simplecov do
   Rake::Task['spec'].execute
 end
 
-task :default => :spec
-
 task :benchmark do
   $:.unshift "./lib"
+  $:.unshift "."
   puts "Scoring Benchmark:"
-  require_relative "benchmarks/scoring_bm"
+  require "benchmarks/scoring_bm"
 end
 
 require 'yard'

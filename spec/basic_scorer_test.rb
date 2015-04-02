@@ -1,6 +1,9 @@
-require 'tournament2'
-
-describe Tournament2::BasicScorer do
+describe "Tournament2::Scorer" do
+  it "needs to be implemented" do
+    expect { Tournament2::Scorer.new(nil, nil).score_of(0,0,1) }.to raise_error
+  end
+end
+describe "Tournament2::BasicScorer" do
   describe "with a complete bracket" do
     before do
       @teams = (0..63).to_a.map {|n| "t#{n}".to_sym}

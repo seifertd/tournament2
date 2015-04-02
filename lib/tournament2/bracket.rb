@@ -1,5 +1,3 @@
-require_relative "bit_twiddle"
-
 module Tournament2
   class Bracket
     attr_accessor :results, :rounds, :number_of_teams, :played, :round
@@ -128,10 +126,10 @@ module Tournament2
       match_info(team, @round)[:alive]
     end
 
-    def print
+    def print(out = $stdout)
       bit_format = "%0#{total_games}b"
-      puts "RESULTS: #{bit_format % @results}"
-      puts " PLAYED: #{bit_format % @played}"
+      out.puts "RESULTS: #{bit_format % @results}"
+      out.puts " PLAYED: #{bit_format % @played}"
     end
 
     def self.random_bracket(teams)

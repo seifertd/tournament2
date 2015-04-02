@@ -11,5 +11,6 @@ group :development do
   gem "rdoc"
   gem "bundler"
   gem "jeweler"
-  gem "simplecov"
+  gem "simplecov", :require => false
+  gem "simplecov-html", :require => false
 end

@@ -1,18 +1,9 @@
 require 'simplecov'
 
-module SimpleCov::Configuration
-  def clean_filters
-    @filters = []
-  end
-end
-
-SimpleCov.configure do
-  clean_filters
-  load_profile 'test_frameworks'
-end
+SimpleCov.command_name "RSpec #{Process.pid}"
 
 ENV["COVERAGE"] && SimpleCov.start do
-  add_filter "/.rvm/"
+  add_filter "/.gem/"
 end
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
