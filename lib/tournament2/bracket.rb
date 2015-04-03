@@ -66,6 +66,18 @@ module Tournament2
     def complete?
       games_played >= total_games
     end
+    
+    def matchup(round, game)
+      if round == 0
+        [game * 2, game * 2 + 1]
+      elsif (played?(round - 1, game * 2) && played?(round - 1, game * 2 + 1))
+        m1 = result(round - 1, game * 2)
+        m2 = result(round - 1, game * 2 + 1)
+        [m1[1], m2[1]]
+      else
+        nil
+      end
+    end
 
     def match_info(team_id, round = @rounds)
       alive = true

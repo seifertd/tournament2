@@ -6,6 +6,13 @@ describe "Tournament2::Bracket" do
     expect(@bracket.rounds).to eq(6)
     expect(Tournament2::Bracket.new(16).rounds).to eq(4)
   end
+  it "knows first round matchups" do
+    expect(@bracket.matchup(0,0)).to eq([0,1])
+    expect(@bracket.matchup(0,31)).to eq([62,63])
+  end
+  it "doesn't know matchup for games where previous games are not played" do
+    expect(@bracket.matchup(1,0)).to be(nil)
+  end
   it "calculates number of games per round" do
     expect(@bracket.games_in_round(0)).to eq(32)
     expect(@bracket.games_in_round(1)).to eq(16)
@@ -39,6 +46,10 @@ describe "Tournament2::Bracket" do
     end
     it "has no winner" do
       expect(@bracket.winner).to be_falsy
+    end
+    it "knows round 1 matchups" do
+      expect(@bracket.matchup(1,0)).to eq([0,3])
+      expect(@bracket.matchup(1,4)).to eq([17,18])
     end
     it "knows a team that has won is alive" do
       expect(@bracket.team_alive(0)).to be(true)
