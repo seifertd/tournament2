@@ -30,6 +30,6 @@ module Tournament2
       2 ** round
     end
 
-    Scorer.register('basic2', self)
+    Scorer.register('Basic2', self)
   end
 end

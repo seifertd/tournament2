@@ -3,7 +3,7 @@ describe "Tournament2::Scorer" do
     expect { Tournament2::Scorer.new(nil, nil).score_of(0,0,1) }.to raise_error
   end
   it "knows the names of registered scorers" do
-    expect(Tournament2::Scorer.scorer_names).to eq(['basic','basic2'])
+    expect(Tournament2::Scorer.scorer_names).to eq(['Basic','Basic2', 'Josh Patashnik'])
   end
 end
 describe "Tournament2::BasicScorer" do
@@ -11,8 +11,8 @@ describe "Tournament2::BasicScorer" do
     before do
       @teams = (0..63).to_a.map {|n| "t#{n}".to_sym}
       @bracket = Tournament2::Bracket.random_bracket(@teams)
-      @scorer = Tournament2::Scorer.scorer_by_name('basic', @teams, @bracket)
-      @scorer2 = Tournament2::Scorer.scorer_by_name('basic2', @teams, @bracket)
+      @scorer = Tournament2::Scorer.scorer_by_name('Basic', @teams, @bracket)
+      @scorer2 = Tournament2::Scorer.scorer_by_name('Basic2', @teams, @bracket)
     end
     it "is complete" do
       expect(@bracket.complete?).to be(true)
