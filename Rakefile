@@ -34,6 +34,7 @@ task :default => :spec
 
 desc "Code coverage detail"
 task :simplecov do
+  system("rm -rf coverage")
   ENV['COVERAGE'] = "true"
   Rake::Task['spec'].execute
 end

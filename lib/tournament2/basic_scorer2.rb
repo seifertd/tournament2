@@ -1,6 +1,7 @@
 module Tournament2
   class BasicScorer2 < Scorer
     FR_MASK = 0xffffffff
+    NAME = 'Basic2'
 
     def score (picks)
       # round 1 score:
@@ -25,11 +26,17 @@ module Tournament2
       end
       score
     end
-
     def score_of(round, winner, loser)
       2 ** round
     end
 
-    Scorer.register('Basic2', self)
+    def name
+      NAME
+    end
+
+    def description
+      "Each correct pick is worth the round number."
+    end
+    Scorer.register(NAME, self)
   end
 end
