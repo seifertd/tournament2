@@ -1,4 +1,5 @@
 module Tournament2
+  # TODO: Write this in C, could we get 100X performance?
   class Scorer
     attr_reader :result_bracket, :teams
     def initialize(teams, result_bracket)
