@@ -46,5 +46,12 @@ task :benchmark do
   require "benchmarks/scoring_bm"
 end
 
+task :ext do
+  Dir.chdir("./ext") do
+    system("gcc -c -fPIC scorer.c -o scorer.o")
+    system("gcc -shared -o scorer.so scorer.o")
+  end
+end
+
 require 'yard'
 YARD::Rake::YardocTask.new

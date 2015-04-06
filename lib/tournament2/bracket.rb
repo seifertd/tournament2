@@ -1,6 +1,6 @@
 module Tournament2
   class Bracket
-    attr_accessor :results, :rounds, :number_of_teams, :played, :round
+    attr_accessor :results, :rounds, :number_of_teams, :played, :round, :final_results
     def initialize(number_of_teams)
       @number_of_teams = number_of_teams
       @rounds = (Math.log(@number_of_teams) / Math.log(2)).to_i
@@ -11,7 +11,16 @@ module Tournament2
     end
 
     def reset_final_results
-      @final_results = Hash.new {|h,k| h[k] = {} }
+      @final_results = []
+      0.upto(@rounds-1) do |r|
+        0.upto(games_in_round(r)-1) do |g|
+          @final_results[round_offset(r) + g] = result(r, g, false)
+        end
+      end
+    end
+
+    def flattened_final_results
+      @ffr ||= @final_results.map {|r| r.nil? ? [-1,-1,-1] : r}.flatten
     end
 
     def total_games
@@ -131,7 +140,9 @@ module Tournament2
     end
 
     def final_result(round, game)
-      @final_results[round][game] ||= result(round, game, false)
+      #puts "FINAL RESULT ROUND #{round} game #{game}"
+      index = round_offset(round) + game
+      @final_results[index] ||= result(round, game, false)
     end
 
     def team_alive(team)

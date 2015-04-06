@@ -33,6 +33,10 @@ describe "Tournament2::Scorer" do
     let(:scoring_class) { Tournament2::TweakedJoshPatashnikScorer }
     it_behaves_like "a scoring system class instance"
   end
+  describe "FFI scorer" do
+    let(:scoring_class) { Tournament2::FFIScorer }
+    it_behaves_like "a scoring system class instance"
+  end
 end
 describe "Tournament2::BasicScorer" do
   describe "with a complete bracket" do
@@ -61,9 +65,8 @@ describe "Tournament2::BasicScorer" do
     end
   end
 end
-describe "Tournament2 scoring system" do
-  SEEDS = [1,16,8,9,5,12,4,13,6,11,3,14,7,10,2,15]
-  let(:teams) { (0..63).to_a.map{|n| Tournament2::Team.new("Team#{n}", "t#{n}", SEEDS[n % 16], n)} }
+describe "any scoring system" do
+  let(:teams) { Tournament2.ncaa_teams }
   shared_examples "a scoring system" do
     describe "with no games played" do
       let(:bracket) { Tournament2::Bracket.new(64) }
@@ -86,11 +89,20 @@ describe "Tournament2 scoring system" do
             end
           end
         end
+        it "is complete" do
+          expect(@picks.complete?).to be(true)
+        end
         it "has the highest possible max score" do
-          expect(scorer.score(@picks).last).to eq(@expected_score)
+          score = scorer.score(@picks)
+          #puts "Score from #{scorer.class.name}: #{score.inspect}: expected: #{@expected_score}"
+          expect(score.last).to eq(@expected_score)
         end
       end
     end
+  end
+  describe "basic scorer" do
+    let(:scorer) { Tournament2::BasicScorer.new(teams, bracket) }
+    it_behaves_like "a scoring system"
   end
   describe "josh patashnik scorer" do
     let(:scorer) { Tournament2::JoshPatashnikScorer.new(teams, bracket) }
@@ -98,6 +110,10 @@ describe "Tournament2 scoring system" do
   end
   describe "tweaked josh patashnik scorer" do
     let(:scorer) { Tournament2::TweakedJoshPatashnikScorer.new(teams, bracket) }
+    it_behaves_like "a scoring system"
+  end
+  describe "ffi scorer" do
+    let(:scorer) { Tournament2::FFIScorer.new(teams, bracket) }
     it_behaves_like "a scoring system"
   end
 end
