@@ -24,7 +24,8 @@ int t2_games_in_round(int n_teams, int r) {
 }
 
 int t2_basic(int round, int winner, int loser) {
-  return pow(2, round);
+  static int roundScores[6] = {1,2,4,8,16,32};
+  return roundScores[round];
 }
 
 int t2_josh_patashnik(int round, int winner, int loser) {

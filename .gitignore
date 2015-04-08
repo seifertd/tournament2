@@ -16,6 +16,9 @@ ext/*.o
 # bundler
 /.bundle/
 
+# gem_home
+/.gem/
+
 # jeweler generated
 pkg
 
