@@ -1,40 +1,44 @@
 require 'ffi'
 module Tournament2
   module FFIScorerExt
-    class ScoreObj < FFI::Struct
-      layout :score, :int, :max, :int
-    end
+    SCORING_METHODS = [:basic, 1, :josh_patashnik, :tweaked_josh_patashnik, :upset, :constant_value]
     extend FFI::Library
     ffi_lib 'c'
     ffi_lib './ext/scorer.so'
-    attach_function :ffi_games_in_round, [:int, :int], :int
-    attach_function :ffi_score, [:int, :int, :pointer, :pointer, ScoreObj.by_ref], :void
+    class ScoreObj < FFI::Struct
+      layout :score, :int, :max, :int
+    end
+    enum :scoring_method, SCORING_METHODS
+    attach_function :t2_score, [:int, :int, :scoring_method, :pointer, :pointer, ScoreObj.by_ref], :void
+    attach_function :t2_score_of, [:scoring_method, :int, :int, :int], :int
   end
-  class FFIScorer < Scorer
-    def initialize(teams, bracket)
-      super
+  class FFIScorer
+    attr_reader :scoring_method
+    def initialize(scoring_method, bracket)
+      raise "Invalid scoring method: #{scoring_method.inspect}" unless FFIScorerExt::SCORING_METHODS.include?(scoring_method) && scoring_method != 1
+
+      @scoring_method = scoring_method
       if bracket
-        result_bracket.reset_final_results
-        @bracket_picks = FFI::MemoryPointer.new(:int, result_bracket.total_games * 3)
-        @picks_picks = FFI::MemoryPointer.new(:int, result_bracket.total_games * 3)
-        @bracket_picks.write_array_of_int(result_bracket.flattened_final_results)
+        bracket.reset_final_results
+        @bracket_picks = FFI::MemoryPointer.new(:int, bracket.total_games * 3)
+        @picks_picks = FFI::MemoryPointer.new(:int, bracket.total_games * 3)
+        @bracket_picks.write_array_of_int(bracket.flattened_final_results)
         @score = FFIScorerExt::ScoreObj.new
       end
     end
-    def name
-      self.class.name
+    def self.scorer_name
+      "FFI Scorer"
+    end
+    def self.description
+      "Scorer implemented using FFI for speed"
     end
     def score(picks)
       @picks_picks.write_array_of_int(picks.flattened_final_results)
-      FFIScorerExt.ffi_score(result_bracket.number_of_teams, result_bracket.rounds, @bracket_picks, @picks_picks, @score)
+      FFIScorerExt.t2_score(picks.number_of_teams, picks.rounds, @scoring_method, @bracket_picks, @picks_picks, @score)
       [@score[:score], @score[:max]]
     end
     def score_of(round, winner, loser)
-      2 ** round
+      FFIScorerExt.t2_score_of(@scoring_method, round, winner, loser)
     end
-    def description
-      "Super fast version of basic scorer"
-    end
-    Scorer.register(self.class.name, self)
   end
 end

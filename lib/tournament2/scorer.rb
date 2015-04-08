@@ -34,8 +34,8 @@ module Tournament2
       @scorers ||= {}
     end
 
-    def self.register(name, clazz)
-      scorers[name] = clazz
+    def self.register(clazz)
+      scorers[clazz.scorer_name] = clazz
     end
 
     def self.scorer_names

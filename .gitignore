@@ -5,6 +5,9 @@ coverage.data
 # rdoc generated
 /rdoc/
 
+ext/*.so
+ext/*.o
+
 # yard generated
 /doc/
 /.yardoc/

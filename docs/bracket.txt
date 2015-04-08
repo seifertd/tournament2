@@ -116,7 +116,6 @@ t54 = 53                1            3         2         1
                    5432109876543210 00987654321098765432109876543210 
 0 10 1010 10101010 1010101010101010 10100111100111101100110000101110
 
-
 4/2/15: 50,000 bracket scores in 1.87 seconds = 26747 scores/sec
         Before any games played, there are 2^64 - 1 possible outcomes = 18446744073709551615
         Assume N=50 entrants
@@ -129,5 +128,24 @@ t54 = 53                1            3         2         1
 
         once we are down to 24 teams left, this becomes ~523 minutes or ~8.7 hours
 
-        To be able to precalc all possibilites after the first round, you'd need about 2,200 hours. Devide it up
+        To be able to precalc all possibilites after the first round, you'd need about 2,200 hours. Divide it up
         between 1,000 cores and it is doable!
+
+4/7/15: How to determine how many games correct in rounds 1 through N without looping
+
+in round 0, this is easy:  result: 0010010111
+                             pick: 1010110001
+
+                             just xor and subtract number of bits from number of games, that gives you number correct:
+                              xor: 1000100110  -> number correct = 10 - 4 = 6
+
+in round 1, it is harder, we are dealing with pairs of bits:
+                            game: 0  1  2  3 
+                          result: 00 10 01 11
+                            pick: 01 10 10 01  
+                             xor: 01 00 11 10  number correct is number of pairs of 00, starting at even positions. How do we count this?
+
+                          result: 00 10 01 11
+                            pick: 01 10 11 10  
+                             xor: 01 00 10 01  number correct is number of pairs of 00, starting at even positions. How do we count this?
+

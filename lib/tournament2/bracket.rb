@@ -175,6 +175,7 @@ module Tournament2
         end
         current_teams = new_teams
       end
+      b.reset_final_results
       b
     end
   end

@@ -1,15 +1,14 @@
 module Tournament2
   class BasicScorer < Scorer
-    NAME = 'Basic'
     def score_of(round, winner, loser)
       2 ** round
     end
-    def name
-      NAME
+    def self.scorer_name
+      "Basic" 
     end
-    def description
+    def self.description
       "Each correct pick is equal to the round number."
     end
-    Scorer.register(NAME, self)
+    Scorer.register(self)
   end
 end
