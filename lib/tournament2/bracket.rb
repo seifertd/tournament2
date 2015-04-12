@@ -3,7 +3,7 @@ module Tournament2
     attr_accessor :results, :rounds, :number_of_teams, :played, :round, :final_results
     def initialize(number_of_teams)
       @number_of_teams = number_of_teams
-      @rounds = Math.log2(number_of_teams).to_i
+      @rounds = (Math.log2(number_of_teams) + 0.5).to_i
       @results = 0
       @played = 0
       @round = 0
