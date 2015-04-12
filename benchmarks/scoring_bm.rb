@@ -17,14 +17,14 @@ ffi_upset = Tournament2::FFIScorer.new(:upset, bracket)
 
 # WARM IT UP
 picks.each do |p|
-  scorer.score(p)
-  scorer2.score(p)
-  joshp.score(p)
-  ffi_basic.score(p)
-  ffi_joshp.score(p)
-  ffi_tjoshp.score(p)
-  ffi_cv.score(p)
-  ffi_upset.score(p)
+  puts "ruby basic: #{scorer.score(p).inspect}"
+  puts "ruby basic2: #{scorer2.score(p)}"
+  puts "ruby joshp: #{joshp.score(p)}"
+  puts "ruby ffi_basic: #{ffi_basic.score(p)}"
+  puts "ruby ffi_joshp: #{ffi_joshp.score(p)}"
+  puts "ruby ffi_tjoshp: #{ffi_tjoshp.score(p)}"
+  puts "ruby ffi_cv: #{ffi_cv.score(p)}"
+  puts "ruby ffi_upset: #{ffi_upset.score(p)}"
 end
 
 n = 10_000

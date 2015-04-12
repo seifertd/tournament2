@@ -48,8 +48,8 @@ end
 
 task :ext do
   Dir.chdir("./ext") do
-    system("gcc -c -fPIC scorer.c -o scorer.o")
-    system("gcc -shared -o scorer.so scorer.o")
+    system("gcc -c -Ofast -fPIC scorer.c -o scorer.o")
+    system("gcc -shared -Ofast -o scorer.so scorer.o")
   end
 end
 
