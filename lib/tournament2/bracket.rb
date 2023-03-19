@@ -61,7 +61,7 @@ module Tournament2
       end
       info = match_info(team)
       if !info[:alive]
-        raise "Team #{team} has been eliminated"
+        raise "Team #{team} has been eliminated: #{info.inspect}"
       end
       #puts "  -> INFO: #{info.inspect}"
       @results |= (info[:team_bit] << info[:result_offset])
@@ -70,6 +70,11 @@ module Tournament2
         @round += 1
       end
       @results
+    end
+
+    def alive?(team)
+      info = match_info(team)
+      info[:alive]
     end
 
     def complete?
@@ -149,10 +154,11 @@ module Tournament2
       match_info(team, @round)[:alive]
     end
 
-    def print(out = $stdout)
-      bit_format = "%0#{total_games}b"
-      out.puts "RESULTS: #{bit_format % @results}"
-      out.puts " PLAYED: #{bit_format % @played}"
+    def to_s
+      #bit_format = "%0#{total_games}b"
+      #out.puts "RESULTS: 0b#{bit_format % @results}"
+      #out.puts " PLAYED: 0b#{bit_format % @played}"
+      "0x#{"%016x" % @results} 0x#{"%016x" % @played}"
     end
 
     def self.random_bracket(teams)
