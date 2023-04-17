@@ -94,6 +94,25 @@ tourney.record_win_by(team_to_index["Ala"])
 
 # Round 2 - Day 2
 tourney.record_win_by(team_to_index["Xav"])
+tourney.record_win_by(team_to_index["KSt"])
+tourney.record_win_by(team_to_index["MiS"])
+tourney.record_win_by(team_to_index["Cre"])
+tourney.record_win_by(team_to_index["FAU"])
+tourney.record_win_by(team_to_index["UCn"])
+tourney.record_win_by(team_to_index["MiF"])
+tourney.record_win_by(team_to_index["Gon"])
+
+# Round 3 - Day 1
+tourney.record_win_by(team_to_index["UCn"])
+tourney.record_win_by(team_to_index["KSt"])
+tourney.record_win_by(team_to_index["FAU"])
+tourney.record_win_by(team_to_index["Gon"])
+
+# Round 3 - Day 1
+tourney.record_win_by(team_to_index["SDS"])
+tourney.record_win_by(team_to_index["MiF"])
+tourney.record_win_by(team_to_index["Cre"])
+tourney.record_win_by(team_to_index["Tex"])
 
 puts "Total Games In Tourney: #{tourney.total_games}"
 puts "Games Played: #{tourney.games_played}"
@@ -107,7 +126,7 @@ if !STDIN.tty? && !STDIN.closed? || ARGF.filename != ?-
   printf "%10s  %3s  %5s %4s %4s  %3s  %5s  %-21s\n", "",       "Tie",   "Curr",  "Max",  "Min",  "Max",   "Win",   "" 
   printf "%10s %5s %5s %4s %4s %5s %6s %-21s\n", "Entry", "Break", "Score", "Rank", "Rank", "Score", "Chance", "Top Champs"
   puts "-"*70
-  possibilities["picks"].sort_by{|e| -e["champs"].values.sum }.each do |entry|
+  possibilities["picks"].sort_by{|e| [-e["champs"].values.sum, e["maxRank"], e["minRank"], -e["maxScore"]] }.each do |entry|
     tie_break, bracket = entries[entry["name"]]
     scorer = Tournament2::UpsetScorer.new(teams, tourney)
     score, max_score = scorer.score(bracket)
