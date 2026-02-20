@@ -34,11 +34,11 @@ GEM
       semver2
     jwt (2.7.0)
     mime-types (2.99.3)
-    mini_portile2 (2.8.8)
+    mini_portile2 (2.8.9)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.3.0)
-    nokogiri (1.18.8)
+    nokogiri (1.19.1)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     oauth2 (1.4.8)
