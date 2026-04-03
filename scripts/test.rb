@@ -1,11 +1,11 @@
-require 'bracket'
+require 'tournament2/bracket'
 teams = (0..63).to_a.map {|n| "t#{n}".to_sym}
-b = Bracket.random_bracket(teams)
+b = Tournament2::Bracket.random_bracket(teams)
 0.upto(b.rounds - 1) do |r|
   puts "Games in round #{r} = #{b.games_in_round(r)}"
 end
 puts b.inspect
-b.print
+puts b.to_s
 puts "Bracket complete? #{b.complete?}"
 puts "Winner: #{b.winner}: #{teams[b.winner].inspect}"
 puts "LAST GAME: result: #{b.final_result(5,0).inspect}"

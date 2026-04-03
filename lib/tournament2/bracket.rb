@@ -1,3 +1,4 @@
+require_relative './bit_twiddle'
 module Tournament2
   class Bracket
     attr_accessor :results, :rounds, :number_of_teams, :played, :round, :final_results
@@ -28,11 +29,11 @@ module Tournament2
     end
 
     def games_played
-      BitTwiddle.bits_set_in @played
+      Tournament2::BitTwiddle.bits_set_in @played
     end
 
     def games_played_in_round(round)
-      BitTwiddle.bits_set_in ((@played >> round_offset(round)) & round_mask(round))
+      Tournament2::BitTwiddle.bits_set_in ((@played >> round_offset(round)) & round_mask(round))
     end
 
     def games_in_round(round)
