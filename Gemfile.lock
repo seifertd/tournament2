@@ -39,7 +39,7 @@ GEM
       rake
       rdoc
       semver2
-    jwt (2.10.2)
+    jwt (2.10.3)
       base64
     logger (1.7.0)
     mime-types (2.99.3)
